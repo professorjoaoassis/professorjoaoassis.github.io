@@ -12,6 +12,14 @@
   const original = new WeakMap();
   const langBtn = document.getElementById('langBtn'), learnBtn = document.getElementById('learnBtn');
 
+  /* WhatsApp button: the number is assembled here so it never sits whole in the page source */
+  function wireWA() {
+    const n = ['55', '35', '99857', '4741'];
+    const msg = SITE.t("Hi João! I found your website and I'd like to know more about private English lessons.",
+      'Olá, professor João! Encontrei o seu site e gostaria de saber mais sobre as aulas particulares de inglês.');
+    document.querySelectorAll('[data-wa]').forEach(a => { a.href = 'https://wa.me/' + n.join('') + '?text=' + encodeURIComponent(msg); });
+    document.querySelectorAll('[data-wa-num]').forEach(el => { el.textContent = '(' + n[1] + ') ' + n[2] + '-' + n[3]; });
+  }
   function apply() {
     const pt = SITE.lang === 'pt';
     document.documentElement.lang = pt ? 'pt-BR' : 'en';
@@ -31,6 +39,7 @@
     document.querySelectorAll('.lw').forEach(s => { if (learning) s.tabIndex = 0; else s.removeAttribute('tabindex'); });
     if (langBtn) { langBtn.textContent = pt ? 'View in English' : 'Ver em português'; langBtn.lang = pt ? 'en' : 'pt-BR'; }
     if (learnBtn) { learnBtn.hidden = pt; learnBtn.setAttribute('aria-pressed', String(SITE.learn)); }
+    wireWA();
     document.documentElement.classList.remove('pt-wait');
     document.dispatchEvent(new CustomEvent('langchange'));
   }

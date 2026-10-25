@@ -74,6 +74,22 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
 
 
 # ---------------------------------------------------------------- home
+CHAT_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9 10.5h6M9 13.5h4"/></svg>'
+
+def contact(kicker_id):
+    return f'''<section class="contact" aria-labelledby="{kicker_id}">
+    <div>
+      <p class="kicker" id="{kicker_id}" data-pt="Fale comigo">Get in touch</p>
+      <h2 data-pt="Aulas particulares">{lw('Private lessons', 'aulas particulares')}</h2>
+      <p data-pt="Ofereço aulas particulares de inglês, com conteúdo adaptado aos objetivos e ao ritmo de cada aluno. Para conversar sobre horários e valores, envie-me uma mensagem pelo WhatsApp.">I {lw('offer', 'ofereço')} private English lessons, {lw('adapted', 'adaptadas')} to each student's {lw('goals', 'objetivos')} and {lw('pace', 'ritmo')}. To talk about times and {lw('prices', 'valores')}, send me a message on WhatsApp.</p>
+    </div>
+    <div class="contact-act">
+      <a class="btn wa" data-wa href="#" target="_blank" rel="noopener">{CHAT_ICON}<span data-pt="Chamar no WhatsApp">Message me on WhatsApp</span></a>
+      <span class="wa-num" data-wa-num></span>
+    </div>
+  </section>'''
+
+
 HOME = f'''
 <div id="boot" hidden aria-hidden="true">
   <div class="bootbox">
@@ -134,6 +150,7 @@ HOME = f'''
       <li><a href="about/"><strong data-pt="Sobre mim">About me</strong><span data-pt="Quem eu sou e a minha visão de ensino.">Who I am and how I see teaching.</span><b class="arw" aria-hidden="true">→</b></a></li>
     </ul>
   </section>
+  {contact('k-contact')}
 </main>
 '''
 
@@ -245,6 +262,7 @@ PROJECTS = f'''
 </main>
 '''
 
+
 # ---------------------------------------------------------------- about
 ABOUT = f'''
 <main class="wrap page" id="main">
@@ -259,6 +277,7 @@ ABOUT = f'''
     <p data-pt="Ao desenvolver um novo idioma, o aluno conquista acesso a informações, culturas e perspectivas que antes pareciam distantes. A língua deixa de ser uma barreira e passa a ser uma ferramenta de expressão e de crescimento pessoal.">With a new language, you can {lw('reach', 'alcançar, acessar')} information, cultures and {lw('points of view', 'pontos de vista')} that once seemed far away. The language stops being a {lw('barrier', 'barreira')} and becomes a tool for expression and personal {lw('growth', 'crescimento')}.</p>
     <p data-pt="É dessa convicção que nascem as soluções e ferramentas que desenvolvo: quando o aluno experimenta, erra e tenta novamente, o idioma deixa de ser conteúdo escolar e passa a ser, de fato, seu. Estudar línguas é, acima de tudo, um caminho para fortalecer a própria voz no mundo.">That is where the solutions and tools I create come from: when students try, make {lw('mistakes', 'erros')} and try again, English stops being just a school subject and {lw('truly', 'de fato')} becomes theirs. Above all, learning a language is a way to {lw('strengthen', 'fortalecer')} your own voice in the world.</p>
   </div>
+  {contact('k-contact')}
 </main>
 '''
 
