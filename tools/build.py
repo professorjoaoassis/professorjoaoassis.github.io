@@ -60,7 +60,7 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
 </div>{wave_html}
 {body}
 <footer class="site"><div class="wrap">
-  <span data-pt="Criado e dirigido por João · Código escrito com ajuda do Claude · Cuiabá, MT">Designed and directed by João · Code written with help from Claude · Cuiabá, MT</span>{footer_extra}
+  <span data-pt="Criado e dirigido por João · Cuiabá, MT">Designed and directed by João · Cuiabá, MT</span>{footer_extra}
 </div></footer>
 <script src="{root}assets/site.js"></script>{js}
 </body>
