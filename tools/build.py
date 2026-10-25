@@ -85,7 +85,6 @@ def contact(kicker_id):
     </div>
     <div class="contact-act">
       <a class="btn wa" data-wa href="#" target="_blank" rel="noopener">{CHAT_ICON}<span data-pt="Chamar no WhatsApp">Message me on WhatsApp</span></a>
-      <span class="wa-num" data-wa-num></span>
     </div>
   </section>'''
 

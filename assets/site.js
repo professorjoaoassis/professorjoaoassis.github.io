@@ -18,7 +18,6 @@
     const msg = SITE.t("Hi João! I found your website and I'd like to know more about private English lessons.",
       'Olá, professor João! Encontrei o seu site e gostaria de saber mais sobre as aulas particulares de inglês.');
     document.querySelectorAll('[data-wa]').forEach(a => { a.href = 'https://wa.me/' + n.join('') + '?text=' + encodeURIComponent(msg); });
-    document.querySelectorAll('[data-wa-num]').forEach(el => { el.textContent = '(' + n[1] + ') ' + n[2] + '-' + n[3]; });
   }
   function apply() {
     const pt = SITE.lang === 'pt';
