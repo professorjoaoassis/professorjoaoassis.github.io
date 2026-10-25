@@ -1,0 +1,59 @@
+/* Colégio São Benedito page */
+.term-row{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:7px;font:500 12px/1 var(--f-mono);color:var(--soft);border:1px solid var(--line-2);border-radius:999px;padding:7px 11px}
+.pill.term{color:var(--ink);border-color:#3a2416;background:rgba(255,106,43,.08)}
+.pill.term::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--magma)}
+
+.picker{display:grid;gap:14px}
+.groups{display:grid;grid-template-columns:4fr 3fr;gap:14px 20px}
+.gg{display:grid;gap:8px;align-content:start;min-width:0}
+.gg-label{margin:0;font-size:13px;color:var(--dim)}
+.gbtns{display:grid;gap:8px}
+#g-ef{grid-template-columns:repeat(4,minmax(0,1fr))}
+#g-em{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grade{position:relative;display:grid;gap:2px;padding:12px 12px 10px;border:1px solid var(--line-2);border-radius:10px;background:var(--panel);transition:border-color .25s var(--ease),transform .25s var(--ease),background .25s var(--ease)}
+.grade:hover{border-color:#41454d;transform:translateY(-1px)}
+.grade b{font-size:17px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+.grade span{font:400 11px var(--f-mono);color:var(--dim)}
+.grade .dot{position:absolute;top:10px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--magma);box-shadow:0 0 0 3px rgba(255,106,43,.18)}
+.grade.on{border-color:var(--ink);background:#16181d}
+.grade.on span{color:var(--soft)}
+
+#gradeView{scroll-margin-top:16px;display:grid;gap:26px}
+.pick-first{display:flex;align-items:center;gap:14px;padding:22px;border:1px dashed var(--line-2);border-radius:12px;color:var(--soft)}
+.pick-first span{font-size:22px;color:var(--magma)}
+.pick-first p{margin:0}
+.gv-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.gv-head h2{margin:0;font-size:clamp(28px,5vw,40px);font-weight:650;letter-spacing:-.04em;line-height:1}
+.blk{display:grid;gap:10px}
+.blk h3{display:flex;align-items:center;gap:10px;margin:0;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.blk h3 span{font:500 11px/1 var(--f-mono);color:var(--soft);border:1px solid var(--line-2);border-radius:999px;padding:4px 8px}
+.empty{margin:0;padding:16px 18px;border:1px dashed var(--line-2);border-radius:10px;color:var(--dim);font-size:15px}
+
+.mat{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px 16px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);transition:border-color .25s var(--ease)}
+.mat:hover{border-color:#34373e}
+.mat.is-project{border-color:#3a2416;background:linear-gradient(180deg,rgba(255,106,43,.07),rgba(255,106,43,0) 70%),var(--panel)}
+.ficon{width:44px;height:52px;border-radius:6px 14px 6px 6px;background:#1a1d23;border:1px solid var(--line-2);display:grid;place-items:end center;padding-bottom:7px;position:relative}
+.ficon::before{content:"";position:absolute;top:-1px;right:-1px;width:14px;height:14px;background:linear-gradient(225deg,var(--void) 50%,#2a2e36 50%);border-radius:0 12px 0 4px}
+.ficon span{font:600 10px/1 var(--f-mono);letter-spacing:.04em;color:var(--soft)}
+.is-project .ficon span{color:var(--magma)}
+.mbody{display:grid;gap:4px;min-width:0}
+.mbody h4{margin:0;font-size:16px;font-weight:600;letter-spacing:-.01em;overflow-wrap:anywhere}
+.mbody p{margin:0;color:var(--soft);font-size:14px}
+.mbody .meta{font:400 12px var(--f-mono);color:var(--dim)}
+.new{font:600 10px/1 var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--magma-ink);background:var(--magma);border-radius:999px;padding:3px 6px;vertical-align:2px;margin-left:4px}
+.due{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:6px!important;font-size:13px!important}
+.due b{font-weight:600;color:var(--ink)}
+.due span{font:500 11px/1 var(--f-mono);border-radius:999px;padding:4px 8px}
+.due.ok span{color:#cfe0ff;background:#17243d}
+.due.soon span{color:var(--magma-ink);background:var(--magma)}
+.due.closed span{color:var(--dim);background:#17191d}
+.mact{display:flex;gap:8px}
+@media (max-width:620px){
+  .groups{grid-template-columns:minmax(0,1fr)}
+  .mat{grid-template-columns:40px minmax(0,1fr)}
+  .mact{grid-column:1/-1}
+  .mact .btn{flex:1}
+  .ficon{width:40px;height:48px}
+}
+@media (max-width:380px){ #g-ef{grid-template-columns:repeat(2,minmax(0,1fr))} }

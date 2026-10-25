@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-pt="Professor João Assis · Professor de inglês">Professor João Assis · English teacher</title>
+<meta name="description" content="João, English teacher in Cuiabá: activities, study guides, games and projects.">
+<meta name="theme-color" content="#08090b">
+<meta property="og:title" content="Professor João Assis · English teacher">
+<meta property="og:description" content="João, English teacher in Cuiabá: activities, study guides, games and projects.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>try{if(localStorage.getItem('joao-lang')==='pt'){document.documentElement.classList.add('pt-wait');setTimeout(function(){document.documentElement.classList.remove('pt-wait')},1500)}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+</head>
+<body>
+<a class="skip" href="#main" data-pt="Pular para o conteúdo">Skip to content</a>
+<div class="wrap">
+  <header class="bar">
+    <a class="mark" href="" aria-label="Professor João Assis, home" data-pt-aria="Professor João Assis, início"><span class="pre">Professor</span> João Assis<span class="dot">.</span></a>
+    <nav aria-label="Main" data-pt-aria="Principal">
+      <a href="students/" data-pt="Alunos">Students</a>
+      <a href="playground/" data-pt="Playground">Playground</a>
+      <a href="projects/" data-pt="Projetos">Projects</a>
+      <a href="about/" data-pt="Sobre mim">About me</a>
+    </nav>
+    <div class="lang">
+      <button type="button" class="learn-btn" id="learnBtn" aria-pressed="false" title="Underline harder words and show them in Portuguese"><i></i>Learning mode</button>
+      <button type="button" class="lang-btn" id="langBtn" lang="pt-BR">Ver em português</button>
+    </div>
+  </header>
+  <p class="learn-hint">Learning mode is on: tap or point at the underlined words to see them in Portuguese.</p>
+</div>
+
+<div id="boot" hidden aria-hidden="true">
+  <div class="bootbox">
+    <div class="who"><span class="pre">Professor</span> João Assis<span class="dot">.</span></div>
+    <ul class="bootlines" id="bootLines"></ul>
+    <div class="track"><i id="bootBar"></i></div>
+    <div class="pct"><span id="bootMsg">loading</span><span id="bootPct">0%</span></div>
+  </div>
+</div>
+
+<div class="catch-wrap" id="noteWrap" hidden>
+  <div class="note" role="dialog" aria-modal="true" aria-labelledby="noteKicker">
+    <p class="note-kicker" id="noteKicker">Message in a bottle</p>
+    <p class="note-en" id="noteEn"></p>
+    <p class="note-pt" id="notePt"></p>
+    <div class="note-foot"><span>— J.</span><button type="button" id="noteClose" data-pt="Fechar">Close</button></div>
+  </div>
+</div>
+
+<div class="catch-wrap" id="catchWrap" hidden>
+  <div class="catch" role="dialog" aria-modal="true" aria-labelledby="catchTitle">
+    <div class="catch-head">
+      <div><p class="kicker">My catch</p><h2 id="catchTitle" data-pt="Palavras pescadas">Words you caught</h2></div>
+      <button type="button" class="x" id="catchClose" aria-label="Close" data-pt-aria="Fechar">×</button>
+    </div>
+    <p class="catch-sub" id="catchSub"></p>
+    <ul class="catch-list" id="catchList"></ul>
+    <p class="catch-tip" data-pt="Clique no anão para pescar mais palavras. Tem um tesouro escondido no fundo do mar.">Click the dwarf to fish for more words. There is a treasure hidden at the bottom of the sea.</p>
+  </div>
+</div>
+
+<div class="hero">
+  <canvas id="sea" role="img" aria-label="ASCII beach: a dwarf fishes while the tide comes and goes" data-pt-aria="Praia em ASCII: um anão pesca enquanto a maré vai e vem"></canvas>
+  <button type="button" id="dwarfBtn" class="dwarf-hit" aria-label="Click the dwarf to fish" data-pt-aria="Clique no anão para ele pescar" title="Click to fish" data-pt-title="Clique para pescar"></button>
+  <button type="button" id="bottleBtn" class="dwarf-hit" hidden aria-label="Open the message in the bottle" data-pt-aria="Abrir a mensagem na garrafa" title="Open the bottle" data-pt-title="Abrir a garrafa"></button>
+  <button type="button" id="basketBtn" class="dwarf-hit" aria-label="See the words you caught" data-pt-aria="Ver as palavras pescadas" title="See the words you caught" data-pt-title="Ver as palavras pescadas"></button>
+  <div class="sky" role="group" aria-label="Time of day in the scene" data-pt-aria="Hora do dia na cena">
+    <button type="button" data-sky="auto" aria-pressed="true">auto</button>
+    <button type="button" data-sky="day" aria-pressed="false">day</button>
+    <button type="button" data-sky="night" aria-pressed="false">night</button>
+  </div>
+  <div class="wotd"><b>flood</b><i>/flʌd/</i><span>enchente</span></div>
+</div>
+
+<main class="wrap home" id="main">
+  <div class="intro">
+    <p class="hi" data-pt="<em>Hi!</em> Eu sou o João."><em>Hi!</em> I'm João.</p>
+    <h1 data-pt="Professor de inglês <span>em Cuiabá.</span>">English teacher <span>in Cuiabá.</span></h1>
+    <p class="lead" data-pt="Dou aula para crianças e adolescentes e crio jogos e apps que deixam o inglês mais fácil de praticar. Aqui você encontra atividades, joguinhos e os meus projetos.">I teach <span class="lw" data-tr="crianças">kids</span> and <span class="lw" data-tr="adolescentes">teenagers</span>, and I <span class="lw" data-tr="construo, crio">build</span> small games and apps that make English <span class="lw" data-tr="mais fácil">easier</span> to <span class="lw" data-tr="praticar">practice</span>. Here you can <span class="lw" data-tr="encontrar">find</span> activities, games and my projects.</p>
+    <a class="sb-callout" href="students/sao-benedito/"><b>Colégio São Benedito</b><span data-pt="Os guias de estudo e o trabalho bimestral estão aqui.">Study guides and the bimonthly project are here.</span><b class="arw" aria-hidden="true">→</b></a>
+  </div>
+
+  <section aria-labelledby="k-index">
+    <p class="kicker" id="k-index" data-pt="Explore">Explore</p>
+    <ul class="index">
+      <li><a href="students/"><strong data-pt="Alunos">Students</strong><span data-pt="Atividades, guias de estudo e trabalhos, separados por escola e série.">Activities, study guides and projects, <span class="lw" data-tr="organizados">organized</span> by school and <span class="lw" data-tr="série, ano escolar">grade</span>.</span><b class="arw" aria-hidden="true">→</b></a></li>
+      <li><a href="playground/"><strong>Playground</strong><span data-pt="Joguinhos e apps para praticar inglês no navegador.">Small games and apps to practice English in your <span class="lw" data-tr="navegador">browser</span>.</span><b class="arw" aria-hidden="true">→</b></a></li>
+      <li><a href="projects/"><strong data-pt="Projetos">Projects</strong><span data-pt="Coisas maiores que eu construí: jogos, mapas e ferramentas para a escola.">Bigger things I've <span class="lw" data-tr="construí">built</span>: games, maps and <span class="lw" data-tr="ferramentas">tools</span> for school.</span><b class="arw" aria-hidden="true">→</b></a></li>
+      <li><a href="about/"><strong data-pt="Sobre mim">About me</strong><span data-pt="Quem eu sou, como eu ensino e como eu fiz este site.">Who I am, how I teach, and how I made this site.</span><b class="arw" aria-hidden="true">→</b></a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  <span data-pt="Criado e dirigido por João · Código escrito com ajuda do Claude · Cuiabá, MT">Designed and directed by João · Code written with help from Claude · Cuiabá, MT</span>
+  <button type="button" id="replay" data-pt="Ver a abertura de novo">Replay intro</button>
+</div></footer>
+<script src="assets/site.js"></script>
+<script src="assets/scene.js"></script>
+</body>
+</html>
