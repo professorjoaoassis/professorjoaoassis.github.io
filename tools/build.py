@@ -273,8 +273,13 @@ ABOUT = f'''
     <h1 data-pt="Sobre mim">About me</h1>
   </div>
   <div class="prose">
-    <h2 data-pt="Quem eu sou">Who I am</h2>
+    <div class="me">
+      <img src="img/joao.webp" width="480" height="600" alt="João Pedro de Assis" loading="eager" decoding="async">
+      <div>
+      <h2 data-pt="Quem eu sou">Who I am</h2>
     <p data-pt="Sou João Pedro de Assis, professor de inglês em Cuiabá, Mato Grosso. Leciono para crianças, adolescentes e adultos e desenvolvo soluções educacionais e ferramentas digitais voltadas ao aprendizado do idioma.">I'm João Pedro de Assis, an English teacher in Cuiabá, Mato Grosso. I teach children, {lw('teenagers', 'adolescentes')} and {lw('adults', 'adultos')}, and I {lw('create', 'crio, desenvolvo')} educational {lw('solutions', 'soluções')} and digital {lw('tools', 'ferramentas')} for learning English.</p>
+      </div>
+    </div>
     <h2 data-pt="Minha visão de ensino">My view on teaching</h2>
     <p data-pt="Acredito que o estudo de uma língua vai muito além da memorização de regras ou palavras. Aprender um novo idioma é um processo de emancipação: amplia a forma como nos comunicamos, nos posicionamos e nos relacionamos com o mundo.">I {lw('believe', 'acredito')} that learning a language goes far beyond {lw('memorizing', 'decorar, memorizar')} {lw('rules', 'regras')} and words. A new language changes the way we communicate, how we position ourselves and how we {lw('connect', 'nos relacionamos')} with the world.</p>
     <p data-pt="Ao desenvolver um novo idioma, o aluno conquista acesso a informações, culturas e perspectivas que antes pareciam distantes. A língua deixa de ser uma barreira e passa a ser uma ferramenta de expressão e de crescimento pessoal.">With a new language, you can {lw('reach', 'alcançar, acessar')} information, cultures and {lw('points of view', 'pontos de vista')} that once seemed far away. The language stops being a {lw('barrier', 'barreira')} and becomes a tool for expression and personal {lw('growth', 'crescimento')}.</p>
