@@ -9,7 +9,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 BRAND = '<span class="pre">Professor</span> João Assis<span class="dot">.</span>'   # shown top-left on every page
 SITE_NAME = 'Professor João Assis'     # used in page titles
 
-NAV = [('students/', 'Students', 'Alunos'), ('playground/', 'Playground', 'Playground'),
+NAV = [('students/', 'Students', 'Alunos'), ('laboratory/', 'Laboratory', 'Laboratório'),
        ('projects/', 'Projects', 'Projetos'), ('about/', 'About me', 'Sobre mim')]
 
 
@@ -60,7 +60,7 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
 </div>{wave_html}
 {body}
 <footer class="site"><div class="wrap">
-  <span data-pt="Criado e dirigido por João · Cuiabá, MT">Designed and directed by João · Cuiabá, MT</span>{footer_extra}
+  <span data-pt="Criado e dirigido por J.P. · Cuiabá, MT">Designed and directed by J.P. · Cuiabá, MT</span>{footer_extra}
 </div></footer>
 <script src="{root}assets/site.js"></script>{js}
 </body>
@@ -129,9 +129,9 @@ HOME = f'''
     <p class="kicker" id="k-index" data-pt="Explore">Explore</p>
     <ul class="index">
       <li><a href="students/"><strong data-pt="Alunos">Students</strong><span data-pt="Atividades, guias de estudo e trabalhos, separados por escola e série.">Activities, study guides and projects, {lw('organized', 'organizados')} by school and {lw('grade', 'série, ano escolar')}.</span><b class="arw" aria-hidden="true">→</b></a></li>
-      <li><a href="playground/"><strong>Playground</strong><span data-pt="Joguinhos e apps para praticar inglês no navegador.">Small games and apps to practice English in your {lw('browser', 'navegador')}.</span><b class="arw" aria-hidden="true">→</b></a></li>
+      <li><a href="laboratory/"><strong data-pt="Laboratório">Laboratory</strong><span data-pt="Pequenos experimentos para praticar inglês, como aplicativos e jogos.">Small {lw('experiments', 'experimentos')} to practice English, like apps and games.</span><b class="arw" aria-hidden="true">→</b></a></li>
       <li><a href="projects/"><strong data-pt="Projetos">Projects</strong><span data-pt="Coisas maiores que eu construí: jogos, mapas e ferramentas para a escola.">Bigger things I've {lw('built', 'construí')}: games, maps and {lw('tools', 'ferramentas')} for school.</span><b class="arw" aria-hidden="true">→</b></a></li>
-      <li><a href="about/"><strong data-pt="Sobre mim">About me</strong><span data-pt="Quem eu sou, como eu ensino e como eu fiz este site.">Who I am, how I teach, and how I made this site.</span><b class="arw" aria-hidden="true">→</b></a></li>
+      <li><a href="about/"><strong data-pt="Sobre mim">About me</strong><span data-pt="Quem eu sou e a minha visão de ensino.">Who I am and how I see teaching.</span><b class="arw" aria-hidden="true">→</b></a></li>
     </ul>
   </section>
 </main>
@@ -174,21 +174,25 @@ SB = f'''
 </main>
 '''
 
-# ---------------------------------------------------------------- playground
-PLAY = f'''
+# ---------------------------------------------------------------- laboratory
+LAB = f'''
 <main class="wrap page" id="main">
   <div class="page-head">
-    <h1>Playground</h1>
-    <p class="lead" data-pt="Joguinhos para praticar inglês brincando. Funcionam no celular e no computador.">Small games to {lw('practice', 'praticar')} English while you play. They work on your phone and on your computer.</p>
+    <h1 data-pt="Laboratório">Laboratory</h1>
+    <p class="lead" data-pt="Pequenos experimentos para praticar inglês: aplicativos e jogos que funcionam no celular e no computador.">Small {lw('experiments', 'experimentos')} to {lw('practice', 'praticar')} English: apps and games that work on your phone and on your computer.</p>
   </div>
   <ul class="cards">
     <li>
+      <div class="top"><h3>Verbie</h3><span class="chip tool">app</span></div>
+      <p data-pt="Digite uma ação e o Verbie faz. Entende inglês e português, mostra todas as formas do verbo e deixa ouvir a pronúncia.">Type an action and Verbie acts it out. It {lw('understands', 'entende')} English and Portuguese, shows every form of the verb and lets you hear it.</p>
+      <a class="more" href="verbie/" data-pt="Abrir o Verbie →">Open Verbie →</a>
+    </li>
+    <li>
       <div class="top"><h3>Word Fishing</h3><span class="chip game">game</span></div>
-      <p data-pt="Clique no anão da página inicial para pescar palavras em inglês. Dá para ouvir a pronúncia e colecionar as 12, mas cuidado com a gaivota.">Click the dwarf on the home page to {lw('fish', 'pescar')} for English words. You can listen to each word and collect all 12, but watch out for the {lw('seagull', 'gaivota')}.</p>
+      <p data-pt="Clique no anão da página inicial para pescar palavras em inglês. Dá para ouvir a pronúncia e colecionar todas, mas cuidado com a gaivota.">Click the dwarf on the home page to {lw('fish', 'pescar')} for English words. You can listen to each word and collect them all, but watch out for the {lw('seagull', 'gaivota')}.</p>
       <a class="more" href="../" data-pt="Jogar na página inicial →">Play on the home page →</a>
     </li>
   </ul>
-  <p class="lead" style="font-size:15px" data-pt="Mais jogos estão a caminho.">More games are on the way.</p>
 </main>
 '''
 
@@ -248,11 +252,12 @@ ABOUT = f'''
     <h1 data-pt="Sobre mim">About me</h1>
   </div>
   <div class="prose">
-    <p data-pt="Oi! Eu sou o João, professor de inglês em Cuiabá, Mato Grosso. Dou aula no Colégio São Benedito, para o Fundamental II e o Ensino Médio, e num programa bilíngue para crianças pequenas.">Hi! I'm João, an English teacher in Cuiabá, Mato Grosso. I teach at Colégio São Benedito, in middle and high school, and in a {lw('bilingual', 'bilíngue')} program for young children.</p>
-    <h2 data-pt="Como eu ensino">How I teach</h2>
-    <p data-pt="Eu acredito que a gente aprende melhor brincando. Por isso uso jogos e histórias nas aulas e adapto o conteúdo ao nível de cada turma, com palavras simples e passos pequenos.">I {lw('believe', 'acredito')} people learn better when they play. That's why I use games and stories in my classes, and I {lw('adapt', 'adapto')} each lesson to the level of the class, with simple words and small steps.</p>
-    <h2 data-pt="Como eu fiz este site">How I made this site</h2>
-    <p data-pt="Eu desenhei este site e decidi cada detalhe, da praia em ASCII ao anão pescador, inspirado no jogo Dwarf Fortress. O código foi escrito com a ajuda do Claude, um assistente de inteligência artificial.">I {lw('designed', 'projetei')} this site and chose every {lw('detail', 'detalhe')}, from the ASCII beach to the fishing dwarf, {lw('inspired', 'inspirado')} by the game Dwarf Fortress. The code was written with help from Claude, an AI {lw('assistant', 'assistente')}.</p>
+    <h2 data-pt="Quem eu sou">Who I am</h2>
+    <p data-pt="Sou João Pedro de Assis, professor de inglês em Cuiabá, Mato Grosso. Leciono para crianças, adolescentes e adultos e desenvolvo soluções educacionais e ferramentas digitais voltadas ao aprendizado do idioma.">I'm João Pedro de Assis, an English teacher in Cuiabá, Mato Grosso. I teach children, {lw('teenagers', 'adolescentes')} and {lw('adults', 'adultos')}, and I {lw('create', 'crio, desenvolvo')} educational {lw('solutions', 'soluções')} and digital {lw('tools', 'ferramentas')} for learning English.</p>
+    <h2 data-pt="Minha visão de ensino">My view on teaching</h2>
+    <p data-pt="Acredito que o estudo de uma língua vai muito além da memorização de regras ou palavras. Aprender um novo idioma é um processo de emancipação: amplia a forma como nos comunicamos, nos posicionamos e nos relacionamos com o mundo.">I {lw('believe', 'acredito')} that learning a language goes far beyond {lw('memorizing', 'decorar, memorizar')} {lw('rules', 'regras')} and words. A new language changes the way we communicate, how we position ourselves and how we {lw('connect', 'nos relacionamos')} with the world.</p>
+    <p data-pt="Ao desenvolver um novo idioma, o aluno conquista acesso a informações, culturas e perspectivas que antes pareciam distantes. A língua deixa de ser uma barreira e passa a ser uma ferramenta de expressão e de crescimento pessoal.">With a new language, you can {lw('reach', 'alcançar, acessar')} information, cultures and {lw('points of view', 'pontos de vista')} that once seemed far away. The language stops being a {lw('barrier', 'barreira')} and becomes a tool for expression and personal {lw('growth', 'crescimento')}.</p>
+    <p data-pt="É dessa convicção que nascem as soluções e ferramentas que desenvolvo: quando o aluno experimenta, erra e tenta novamente, o idioma deixa de ser conteúdo escolar e passa a ser, de fato, seu. Estudar línguas é, acima de tudo, um caminho para fortalecer a própria voz no mundo.">That is where the solutions and tools I create come from: when students try, make {lw('mistakes', 'erros')} and try again, English stops being just a school subject and {lw('truly', 'de fato')} becomes theirs. Above all, learning a language is a way to {lw('strengthen', 'fortalecer')} your own voice in the world.</p>
   </div>
 </main>
 '''
@@ -277,7 +282,11 @@ if __name__ == '__main__':
     page('students/sao-benedito/', f'Colégio São Benedito · {SITE_NAME}', f'Colégio São Benedito · {SITE_NAME}',
          'Study guides, support materials and the bimonthly project for each grade at Colégio São Benedito.', SB,
          current='students/', css=('sb.css',), scripts=('./materials.js', './app.js'))
-    page('playground/', f'Playground · {SITE_NAME}', f'Playground · {SITE_NAME}', 'Small games to practice English.', PLAY, current='playground/')
+    page('laboratory/', f'Laboratory · {SITE_NAME}', f'Laboratório · {SITE_NAME}', 'Small experiments to practice English: apps and games.', LAB, current='laboratory/')
+    # the old address keeps working
+    old = ROOT / 'playground' / 'index.html'
+    old.parent.mkdir(exist_ok=True)
+    old.write_text('<!doctype html><meta charset="utf-8"><title>Laboratory</title><meta http-equiv="refresh" content="0; url=../laboratory/"><link rel="canonical" href="../laboratory/"><a href="../laboratory/">Laboratory</a>\n', encoding='utf-8')
     page('projects/', f'Projects · {SITE_NAME}', f'Projetos · {SITE_NAME}', 'Educational solutions and tools for the classroom, school management and the city.', PROJECTS, current='projects/', css=('projects.css',), scripts=('assets/projects.js',))
     page('about/', f'About me · {SITE_NAME}', f'Sobre mim · {SITE_NAME}', 'Who I am and how I teach.', ABOUT, current='about/')
     page('404.html', f'Lost at sea · {SITE_NAME}', f'Perdido no mar · {SITE_NAME}', 'Page not found.', NOT_FOUND)
