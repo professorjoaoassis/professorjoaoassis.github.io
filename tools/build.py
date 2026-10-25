@@ -17,7 +17,7 @@ def lw(word, tr):
     return f'<span class="lw" data-tr="{tr}">{word}</span>'
 
 
-def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(), footer_extra='', wave=True):
+def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(), footer_extra='', wave=True, hidden=False):
     depth = path.count('/')
     root = '/' if path == '404.html' else '../' * depth   # the 404 page can be shown at any address
     nav = '\n      '.join(
@@ -25,6 +25,7 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
         for href, en, pt in NAV)
     css_links = ''.join(f'\n<link rel="stylesheet" href="{root}assets/{c}">' for c in css)
     js = ''.join(f'\n<script src="{s if s.startswith("http") or s.startswith("./") else root + s}"></script>' for s in scripts)
+    robots = '\n<meta name="robots" content="noindex, nofollow">' if hidden else ''
     wave_html = '\n<div class="wave" aria-hidden="true"><canvas></canvas></div>' if wave else ''
     html = f'''<!doctype html>
 <html lang="en">
@@ -33,7 +34,7 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-pt="{title_pt}">{title_en}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#08090b">
+<meta name="theme-color" content="#08090b">{robots}
 <meta property="og:title" content="{title_en}">
 <meta property="og:description" content="{desc}">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
@@ -122,7 +123,6 @@ HOME = f'''
     <p class="hi" data-pt="<em>Hi!</em> Eu sou o João."><em>Hi!</em> I'm João.</p>
     <h1 data-pt="Professor de inglês <span>em Cuiabá.</span>">English teacher <span>in Cuiabá.</span></h1>
     <p class="lead" data-pt="Dou aula para crianças e adolescentes e crio jogos e apps que deixam o inglês mais fácil de praticar. Aqui você encontra atividades, joguinhos e os meus projetos.">I teach {lw('kids', 'crianças')} and {lw('teenagers', 'adolescentes')}, and I {lw('build', 'construo, crio')} small games and apps that make English {lw('easier', 'mais fácil')} to {lw('practice', 'praticar')}. Here you can {lw('find', 'encontrar')} activities, games and my projects.</p>
-    <a class="sb-callout" href="students/sao-benedito/"><b>Colégio São Benedito</b><span data-pt="Os guias de estudo e o trabalho bimestral estão aqui.">Study guides and the bimonthly project are here.</span><b class="arw" aria-hidden="true">→</b></a>
   </div>
 
   <section aria-labelledby="k-index">
@@ -281,7 +281,7 @@ if __name__ == '__main__':
     page('students/', f'Students · {SITE_NAME}', f'Alunos · {SITE_NAME}', 'Materials for my students, by school and grade.', STUDENTS, current='students/')
     page('students/sao-benedito/', f'Colégio São Benedito · {SITE_NAME}', f'Colégio São Benedito · {SITE_NAME}',
          'Study guides, support materials and the bimonthly project for each grade at Colégio São Benedito.', SB,
-         current='students/', css=('sb.css',), scripts=('./materials.js', './app.js'))
+         current='students/', css=('sb.css',), scripts=('./materials.js', './app.js'), hidden=True)
     page('laboratory/', f'Laboratory · {SITE_NAME}', f'Laboratório · {SITE_NAME}', 'Small experiments to practice English: apps and games.', LAB, current='laboratory/')
     # the old address keeps working
     old = ROOT / 'playground' / 'index.html'
