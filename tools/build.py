@@ -207,7 +207,6 @@ PROJECTS = f'''
     <p class="lead" data-pt="Coisas maiores que eu construí ou estou construindo: jogos, mapas e ferramentas para a escola.">Bigger things I've {lw('built', 'construí')} or I'm still building: games, maps and {lw('tools', 'ferramentas')} for school.</p>
   </div>
   <ul class="cards">
-{proj('Pedal to the Spot', 'game', 'A bike game along the beach in Santos, made with a friend.', 'Um jogo de bike pela orla de Santos, feito com um amigo.')}
 {proj('Cuiabá heat map', 'map', 'The hottest parts of the city, mapped with satellite data.', 'As regiões mais quentes da cidade, mapeadas com dados de satélite.')}
 {proj('Grades &amp; report cards', 'tool', 'A free app for grades and report cards, made for a bilingual school.', 'Um app gratuito de notas e boletins, feito para uma escola bilíngue.')}
 {proj('Lesson guide', 'tool', 'An interactive planner to organize the lessons and tasks of a school term.', 'Um planejador interativo para organizar as aulas e tarefas do bimestre.')}
