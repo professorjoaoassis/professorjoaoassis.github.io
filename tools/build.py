@@ -122,7 +122,7 @@ HOME = f'''
   <div class="intro">
     <p class="hi" data-pt="<em>Hi!</em> Eu sou o João."><em>Hi!</em> I'm João.</p>
     <h1 data-pt="Professor de inglês <span>em Cuiabá.</span>">English teacher <span>in Cuiabá.</span></h1>
-    <p class="lead" data-pt="Dou aula para crianças e adolescentes e crio jogos e apps que deixam o inglês mais fácil de praticar. Aqui você encontra atividades, joguinhos e os meus projetos.">I teach {lw('kids', 'crianças')} and {lw('teenagers', 'adolescentes')}, and I {lw('build', 'construo, crio')} small games and apps that make English {lw('easier', 'mais fácil')} to {lw('practice', 'praticar')}. Here you can {lw('find', 'encontrar')} activities, games and my projects.</p>
+    <p class="lead" data-pt="Dou aula para crianças, adolescentes e adultos e crio jogos e apps que deixam o inglês mais fácil de praticar. Aqui você encontra atividades, joguinhos e os meus projetos.">I teach {lw('kids', 'crianças')}, {lw('teenagers', 'adolescentes')} and {lw('adults', 'adultos')}, and I {lw('build', 'construo, crio')} small games and apps that make English {lw('easier', 'mais fácil')} to {lw('practice', 'praticar')}. Here you can {lw('find', 'encontrar')} activities, games and my projects.</p>
   </div>
 
   <section aria-labelledby="k-index">
