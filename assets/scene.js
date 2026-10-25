@@ -2,6 +2,7 @@
 (() => {
   const T = (en, pt) => (window.SITE && window.SITE.lang === 'pt') ? pt : en;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const snd = window.SFX || new Proxy({}, { get: () => () => {} });
 
   /* ---------- noise ---------- */
   function hash(x, y) {
@@ -80,8 +81,11 @@
   const FOREST = ramp(['#22432a', '#2f5e36', '#417a44', '#62a052'], N);
   const GREEN = ramp(['#2e5a2a', '#43803a', '#5fa548', '#9bd66a'], N);
 
+  let wasRising = false;
   function frame(t, dt) {
     const { L, rising } = tide(t);
+    if (rising && !wasRising && dt > 0) snd.wave();
+    wasRising = rising;
     ctx.fillStyle = '#08090b';
     ctx.fillRect(0, 0, W, Hh);
     ctx.font = font;
@@ -358,8 +362,9 @@
   function splash(x, y, n) {
     for (let i = 0; i < n; i++) drops.push({ x, y, vx: (Math.random() - .5) * 110, vy: -(50 + Math.random() * 90), life: .5 + Math.random() * .3 });
     ripple(x, y, 9 * dw.P, .9, .7); ripple(x, y, 5 * dw.P, .6, .5);
+    snd.splash(n);
   }
-  function setState(s) { dw.state = s; dw.st = 0; }
+  function setState(s) { const prev = dw.state; dw.state = s; dw.st = 0; snd.state(s, prev, dw.big || dw.bigTry); }
   function basketPos() { return { x: dw.rx + 14 * dw.P, y: dw.rockTop + 4 * dw.P - BASKET.length * dw.P }; }
   function basketMouth() { const b = basketPos(); return { x: b.x + 4 * dw.P, y: b.y }; }
   function pop(text, x, y, big) { pops.push({ x, y, text, life: big ? 1.8 : 1.3, big: !!big }); }
@@ -367,7 +372,7 @@
 
   /* ---------- interaction ---------- */
   function markActive() { dw.lastAct = nowT(); }
-  function wake() { dw.sleep = false; dw.startle = .4; markActive(); }
+  function wake() { dw.sleep = false; dw.startle = .4; markActive(); snd.wake(); }
   function addToBag(key) {
     const first = !bag[key];
     bag[key] = (bag[key] || 0) + 1; saveBag();
@@ -429,10 +434,11 @@
   function gullArrive(thief) {
     if (W < 400) return false;
     Object.assign(gull, { s: 'in', t: 0, thief, carry: null, from: { x: W + 20, y: 10 + Math.random() * 30 } });
+    setTimeout(() => snd.gull(false), 900);
     return true;
   }
   function gullLeave() { gull.from = { x: gull.x, y: gull.y }; gull.s = 'leave'; gull.t = 0; }
-  function scareGull() { if (!gull.thief && (gull.s === 'perch' || gull.s === 'in')) gullLeave(); }
+  function scareGull() { if (!gull.thief && (gull.s === 'perch' || gull.s === 'in')) { gullLeave(); snd.gull(false); } }
   function gullUpdate(dt) {
     gull.t += dt;
     if (gull.s === 'in') {
@@ -444,7 +450,7 @@
     } else if (gull.s === 'perch') {
       const to = gullPerch(); gull.x = to.x; gull.y = to.y;
       // the thief waits for a catch to be in the air, then dives for it
-      if (gull.thief && dw.state === 'catch' && dw.item && dw.itemPos) { gull.s = 'swoop'; gull.t = 0; gull.from = { x: gull.x, y: gull.y }; }
+      if (gull.thief && dw.state === 'catch' && dw.item && dw.itemPos) { gull.s = 'swoop'; gull.t = 0; gull.from = { x: gull.x, y: gull.y }; snd.gull(true); }
       else if (gull.t > gull.stay) gullLeave();
     } else if (gull.s === 'swoop') {
       const p = Math.min(gull.t / .3, 1);
@@ -497,6 +503,7 @@
     crab.home = { x: r.x + P, y: r.bottom - 4 * P };
     crab.out = { x: r.x + r.w * P + 7 * P, y: r.bottom - 3 * P };
     Object.assign(crab, { s: 'out', t: 0, x: crab.home.x, y: crab.home.y, pause: 2.5 + Math.random() * 2 });
+    snd.skitter(1.6);
     return true;
   }
   function crabUpdate(dt, t) {
@@ -506,10 +513,10 @@
     if (crab.s === 'out') {
       const p = Math.min(crab.t / 1.8, 1), q = lerp(crab.home, crab.out, sm(p));
       crab.x = q.x; crab.y = q.y;
-      if (wave) { crab.s = 'back'; crab.t = 0; crab.from = { x: crab.x, y: crab.y }; }
+      if (wave) { crab.s = 'back'; crab.t = 0; crab.from = { x: crab.x, y: crab.y }; snd.skitter(.4); }
       else if (p >= 1) { crab.s = 'pause'; crab.t = 0; }
     } else if (crab.s === 'pause') {
-      if (wave || crab.t > crab.pause) { crab.s = 'back'; crab.t = 0; crab.from = { x: crab.x, y: crab.y }; }
+      if (wave || crab.t > crab.pause) { crab.s = 'back'; crab.t = 0; crab.from = { x: crab.x, y: crab.y }; snd.skitter(.4); }
     } else if (crab.s === 'back') {
       const p = Math.min(crab.t / .45, 1), q = lerp(crab.from, crab.home, sm(p));
       crab.x = q.x; crab.y = q.y;
@@ -610,7 +617,7 @@
       const p = Math.min(bottle.t / 9, 1), e = 1 - Math.pow(1 - p, 2);
       bottle.x = bottle.from.x + (bottle.to.x - bottle.from.x) * e;
       bottle.y = bottle.from.y + (bottle.to.y - bottle.from.y) * e + Math.sin(t * 2.4) * 2;
-      if (p >= 1) { bottle.s = 'ashore'; bottle.t = 0; ripple(bottle.x + 3 * dw.P, bottle.y + dw.P, 5 * dw.P, .8, .4); }
+      if (p >= 1) { bottle.s = 'ashore'; bottle.t = 0; ripple(bottle.x + 3 * dw.P, bottle.y + dw.P, 5 * dw.P, .8, .4); snd.glint(); }
     } else if (bottle.s === 'ashore') {
       bottle.x = bottle.to.x; bottle.y = bottle.to.y;
       if (bottle.t > 45) { bottle.s = 'away'; bottle.t = 0; bottle.from = { x: bottle.x, y: bottle.y }; }
@@ -641,7 +648,7 @@
     noteIdx++; try { localStorage.setItem('joao-note', String(noteIdx)); } catch (e) {}
     document.getElementById('noteEn').textContent = n.en;
     document.getElementById('notePt').textContent = n.pt;
-    noteWrap.hidden = false; document.getElementById('noteClose').focus();
+    noteWrap.hidden = false; document.getElementById('noteClose').focus(); snd.paper();
     bottleDone();
   });
   function closeNote() { noteWrap.hidden = true; }
@@ -695,19 +702,19 @@
           // something big is on the line and fighting
           forced = -.5 - .18 * Math.sin(t * 13);
           dw.thrash -= dt;
-          if (dw.thrash <= 0) { ripple(dw.bob.x, dw.bob.y, 7 * P, .6, .6); for (let i = 0; i < 3; i++) drops.push({ x: dw.bob.x, y: dw.bob.y, vx: (Math.random() - .5) * 70, vy: -(30 + Math.random() * 50), life: .4 }); dw.thrash = .28; }
+          if (dw.thrash <= 0) { ripple(dw.bob.x, dw.bob.y, 7 * P, .6, .6); for (let i = 0; i < 3; i++) drops.push({ x: dw.bob.x, y: dw.bob.y, vx: (Math.random() - .5) * 70, vy: -(30 + Math.random() * 50), life: .4 }); dw.thrash = .28; snd.strain(); }
           break;
         }
         if (!dw.sleep && !reduce && t - dw.lastAct > 25) dw.sleep = true;
         if (dw.sleep) {
           tgt = IDLE - .3; K = 10;
           dw.zT -= dt;
-          if (dw.zT <= 0) { const hp = headPos(); zs.push({ x: hp.x + 3 * P, y: hp.y - 3 * P, life: 2.6, ph: Math.random() * 6 }); dw.zT = 1.3; }
+          if (dw.zT <= 0) { const hp = headPos(); zs.push({ x: hp.x + 3 * P, y: hp.y - 3 * P, life: 2.6, ph: Math.random() * 6 }); dw.zT = 1.3; if (zs.length % 2) snd.snore(); }
           break;
         }
         dw.nextNibble -= dt; dw.nextTwitch -= dt; dw.nextRipple -= dt;
         if (dw.nibble > 0) dw.nibble -= dt;
-        if (dw.nextNibble <= 0) { dw.nibble = .45; dw.av -= .5; ripple(dw.bob.x, dw.bob.y, 6 * P, .8, .55); dw.nextNibble = 4 + Math.random() * 6; }
+        if (dw.nextNibble <= 0) { dw.nibble = .45; dw.av -= .5; snd.nibble(); ripple(dw.bob.x, dw.bob.y, 6 * P, .8, .55); dw.nextNibble = 4 + Math.random() * 6; }
         if (dw.nextTwitch <= 0) { dw.av += .45; dw.nextTwitch = 5 + Math.random() * 6; }
         if (dw.nextRipple <= 0) { ripple(dw.bob.x, dw.bob.y, 5 * P, 1.4, .25); dw.nextRipple = 2.2 + Math.random() * 1.5; }
         break;
@@ -761,6 +768,7 @@
         if (p >= 1) {
           const key = dw.item, w = WORDS[key], first = addToBag(key), bm = basketMouth();
           pop((first ? 'new! ' : '') + (w.say || w.w + (w.big ? '!!' : '!')), bm.x, bm.y - 4 * P, w.big);
+          snd.got(first, w.big);
           dw.item = null; dw.big = false; dw.basketBounce = .25;
           setState('windup');
         }
@@ -1226,7 +1234,7 @@
           const j = (Math.random() * rows) | 0, i = (Math.random() * edge[j] * .8) | 0;
           if (L - H[j * cols + i] > .2 && Math.abs(i - (dw.fx / cw)) > 6) {
             const dir = Math.random() < .5 ? -1 : 1, x = i * cw + cw / 2, y = j * ch + ch * .6;
-            jumps.push({ x0: x, y0: y, x1: x + dir * (10 + Math.random() * 8) * P, h: (12 + Math.random() * 8) * P, dir, t: 0, dur: .9 + Math.random() * .3 });
+            snd.jump(); jumps.push({ x0: x, y0: y, x1: x + dir * (10 + Math.random() * 8) * P, h: (12 + Math.random() * 8) * P, dir, t: 0, dur: .9 + Math.random() * .3 });
             splash(x, y, 5);
             break;
           }
@@ -1266,6 +1274,7 @@
     if (dt === 0) { sky.n = sky.goal.n; sky.warm = sky.goal.warm; }
     else { const k = Math.min(1, dt * 1.6); sky.n += (sky.goal.n - sky.n) * k; sky.warm += (sky.goal.warm - sky.warm) * k; }
     directorUpdate(dt);
+    snd.rain(rain.k); snd.night(sky.n);
     decorDraw(t, dt);
     if (!reduce) { gullUpdate(dt); crabUpdate(dt, t); bottleUpdate(dt, t); rainUpdate(dt); }
     bottleDraw(t);
@@ -1309,13 +1318,13 @@
   listEl.addEventListener('click', e => { const b = e.target.closest('.say'); if (b) speak(b.dataset.say); });
   function openPanel() { renderPanel(); panelWrap.hidden = false; document.getElementById('catchClose').focus(); }
   function closePanel() { panelWrap.hidden = true; basketBtn.focus(); }
-  basketBtn.addEventListener('click', () => { markActive(); openPanel(); });
+  basketBtn.addEventListener('click', () => { markActive(); snd.ui(); openPanel(); });
   document.getElementById('catchClose').addEventListener('click', closePanel);
   panelWrap.addEventListener('click', e => { if (e.target === panelWrap) closePanel(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !panelWrap.hidden) closePanel(); });
 
   /* ---------- day / night switch ---------- */
-  const skyBtns = document.querySelectorAll('.sky button');
+  const skyBtns = document.querySelectorAll('.sky-t button');
   function syncSky() { skyBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sky === sky.mode))); }
   skyBtns.forEach(b => b.addEventListener('click', () => {
     sky.mode = b.dataset.sky; sky.clock = 0; syncSky();
@@ -1330,7 +1339,7 @@
     if (visible) frame((now - t0) / 1000, dt);
     requestAnimationFrame(loop);
   }
-  new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(cv);
+  new IntersectionObserver(e => { visible = e[0].isIntersecting; snd.visible(visible); }).observe(cv);
   function start() {
     setup();
     if (reduce) { frame(1.15, 0); return; }

@@ -126,10 +126,14 @@ HOME = f'''
   <button type="button" id="dwarfBtn" class="dwarf-hit" aria-label="Click the dwarf to fish" data-pt-aria="Clique no anão para ele pescar" title="Click to fish" data-pt-title="Clique para pescar"></button>
   <button type="button" id="bottleBtn" class="dwarf-hit" hidden aria-label="Open the message in the bottle" data-pt-aria="Abrir a mensagem na garrafa" title="Open the bottle" data-pt-title="Abrir a garrafa"></button>
   <button type="button" id="basketBtn" class="dwarf-hit" aria-label="See the words you caught" data-pt-aria="Ver as palavras pescadas" title="See the words you caught" data-pt-title="Ver as palavras pescadas"></button>
-  <div class="sky" role="group" aria-label="Time of day in the scene" data-pt-aria="Hora do dia na cena">
+  <div class="sky">
+    <button type="button" class="snd" id="sndBtn" aria-pressed="false" title="Sound" data-pt-title="Som"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="spk" d="M2 6h3l4-3v10l-4-3H2z"/><path class="w1" d="M11 6.2a2.6 2.6 0 0 1 0 3.6"/><path class="w2" d="M12.8 4.4a5.2 5.2 0 0 1 0 7.2"/><path class="x" d="M11 6l4 4m0-4-4 4"/></svg><span data-pt="som">sound</span></button>
+    <i class="sep" aria-hidden="true"></i>
+    <div class="sky-t" role="group" aria-label="Time of day in the scene" data-pt-aria="Hora do dia na cena">
     <button type="button" data-sky="auto" aria-pressed="true">auto</button>
     <button type="button" data-sky="day" aria-pressed="false">day</button>
     <button type="button" data-sky="night" aria-pressed="false">night</button>
+    </div>
   </div>
   <div class="wotd"><b>flood</b><i>/flʌd/</i><span>enchente</span></div>
 </div>
@@ -295,7 +299,7 @@ NOT_FOUND = '''
 if __name__ == '__main__':
     desc = 'João, English teacher in Cuiabá: activities, study guides, games and projects.'
     page('', f'{SITE_NAME} · English teacher', f'{SITE_NAME} · Professor de inglês', desc, HOME, css=('home.css',),
-         scripts=('assets/scene.js',), wave=False,
+         scripts=('assets/sfx.js', 'assets/scene.js'), wave=False,
          footer_extra='\n  <button type="button" id="replay" data-pt="Ver a abertura de novo">Replay intro</button>')
     page('students/', f'Students · {SITE_NAME}', f'Alunos · {SITE_NAME}', 'Materials for my students, by school and grade.', STUDENTS, current='students/')
     page('students/sao-benedito/', f'Colégio São Benedito · {SITE_NAME}', f'Colégio São Benedito · {SITE_NAME}',
