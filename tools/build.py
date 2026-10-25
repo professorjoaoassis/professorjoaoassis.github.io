@@ -193,24 +193,51 @@ PLAY = f'''
 '''
 
 # ---------------------------------------------------------------- projects
-def proj(name, chip, en, pt):
-    return f'''    <li>
-      <div class="top"><h3>{name}</h3><span class="chip {chip}">{chip}</span></div>
-      <p data-pt="{pt}">{en}</p>
-      <p class="chip" style="--c:var(--sand)" data-pt="em andamento">in progress</p>
-    </li>'''
+def proj(slug, title_en, title_pt, chip, chip_pt, en, pt, cap_en, cap_pt, link=None):
+    more = ''
+    if link:
+        more = f'\n        <a class="more" href="{link[0]}" target="_blank" rel="noopener" data-pt="{link[2]}">{link[1]}</a>'
+    return f"""    <article class="project" id="{slug}">
+      <button type="button" class="shot" data-full="img/{slug}.webp" aria-label="Enlarge preview: {title_en}" data-pt-aria="Ampliar prévia: {title_pt}">
+        <img src="img/{slug}.webp" alt="" loading="lazy" width="1280" height="800">
+        <span class="zoom" aria-hidden="true">⤢</span>
+      </button>
+      <div class="pbody">
+        <div class="top"><h2 data-pt="{title_pt}">{title_en}</h2><span class="chip {chip}" data-pt="{chip_pt}">{chip}</span></div>
+        <p data-pt="{pt}">{en}</p>
+        <p class="cap" data-pt="{cap_pt}">{cap_en}</p>{more}
+      </div>
+    </article>"""
 
 PROJECTS = f'''
 <main class="wrap page" id="main">
   <div class="page-head">
     <h1 data-pt="Projetos">Projects</h1>
-    <p class="lead" data-pt="Coisas maiores que eu construí ou estou construindo: jogos, mapas e ferramentas para a escola.">Bigger things I've {lw('built', 'construí')} or I'm still building: games, maps and {lw('tools', 'ferramentas')} for school.</p>
+    <p class="lead" data-pt="Soluções educacionais e ferramentas que desenvolvi para a sala de aula, para a gestão escolar e para a minha cidade.">Educational {lw('solutions', 'soluções')} and tools I have {lw('developed', 'desenvolvi')} for the classroom, for school management and for my city.</p>
   </div>
-  <ul class="cards">
-{proj('Cuiabá heat map', 'map', 'The hottest parts of the city, mapped with satellite data.', 'As regiões mais quentes da cidade, mapeadas com dados de satélite.')}
-{proj('Grades &amp; report cards', 'tool', 'A free app for grades and report cards, made for a bilingual school.', 'Um app gratuito de notas e boletins, feito para uma escola bilíngue.')}
-{proj('Lesson guide', 'tool', 'An interactive planner to organize the lessons and tasks of a school term.', 'Um planejador interativo para organizar as aulas e tarefas do bimestre.')}
-  </ul>
+  <div class="projects">
+{proj('heat-map', 'Cuiabá heat map', 'Mapa de calor de Cuiabá', 'map', 'mapa',
+      f"An interactive map that shows the hottest parts of Cuiabá and Várzea Grande using {lw('satellite', 'satélite')} images, with {lw('layers', 'camadas')} for trees, buildings and how the heat has changed since the 1980s. The next step adds MapBiomas {lw('land-use', 'uso da terra')} data from 1985 to today, so we can compare where the city grew and where nature {lw('disappeared', 'desapareceu')} with where it is hottest now. In class, environmental education becomes an {lw('investigation', 'investigação')}: students find their home and school on the map, ask why some {lw('neighborhoods', 'bairros')} are hotter, and suggest where to plant trees, using real data from their own city.",
+      'Mapa interativo que identifica as áreas mais quentes de Cuiabá e Várzea Grande a partir de imagens de satélite, com camadas de arborização, áreas construídas e da evolução do calor desde a década de 1980. A próxima etapa incorpora os dados do MapBiomas sobre uso e cobertura da terra de 1985 até hoje, permitindo relacionar o crescimento urbano e a perda de vegetação ao aumento da temperatura. Em sala, a educação ambiental se converte em investigação: os alunos localizam a própria casa e a escola, levantam hipóteses sobre por que alguns bairros esquentam mais e propõem onde plantar árvores ou criar sombra, a partir de dados reais da própria cidade.',
+      'Screenshot of the live map.', 'Captura do mapa em funcionamento.',
+      ('https://cuiaba-heat.projects.earthengine.app/view/calordecuiaba', 'Open the map →', 'Abrir o mapa →'))}
+{proj('school-management', 'School management system', 'Sistema de gestão escolar', 'tool', 'ferramenta',
+      f"A system to manage a school's {lw('academic records', 'registros acadêmicos')}. Teachers and coordinators sign in with their own accounts, each with the right {lw('access', 'acesso')}. Teachers enter grades and {lw('absences', 'faltas')}; the system calculates the averages, shows who needs extra support and builds the {lw('report cards', 'boletins')}, ready to export as PDF or Excel. It also keeps class lists, student records and the team's lesson plans in one place.",
+      'Sistema para a gestão dos registros acadêmicos de uma escola. Professores e coordenação acessam com login individual, cada um com as permissões adequadas à sua função. Os professores lançam notas e faltas; o sistema calcula as médias, sinaliza quem precisa de recuperação e gera os boletins, prontos para exportação em PDF e Excel. Reúne ainda o cadastro de turmas e alunos e os planejamentos de toda a equipe em um só lugar.',
+      'Preview with sample data.', 'Prévia com dados fictícios.')}
+{proj('lesson-guide-school', 'Lesson guide · middle and high school', 'Guia de aula · Fundamental II e Ensino Médio', 'tool', 'ferramenta',
+      f"A planner for the whole school term, lesson by lesson: topic, book pages, {lw('homework', 'tarefa de casa')} and a plan B for students without their material. It {lw('reminds', 'lembra')} me which homework to check in each class, records homework for each student, {lw('tracks', 'acompanha')} make-up tests and gathers the term grades.",
+      'Planejador do bimestre completo, aula a aula: tema, páginas do material, tarefa de casa e um plano B para o aluno sem material. O guia indica qual tarefa deve ser cobrada em cada aula, registra a entrega por aluno, acompanha as segundas chamadas e consolida as notas do bimestre.',
+      'Preview with sample data.', 'Prévia com dados fictícios.')}
+{proj('lesson-guide-bilingual', 'Lesson guide · bilingual program for children', 'Guia de aula · programa bilíngue infantil', 'tool', 'ferramenta',
+      f"A step-by-step guide to use during class on a tablet: warm-up, activities, songs and wrap-up, one step at a time, with the audio tracks ready to play. A {lw('preparation', 'preparo')} tab shows, days in {lw('advance', 'antecedência')}, what each lesson needs, like paint, flashcards or a mystery box.",
+      'Roteiro para uso em sala, no tablet: aquecimento, atividades, músicas e encerramento, um passo de cada vez, com as faixas de áudio prontas para tocar. Uma aba de preparo antecipa, com dias de antecedência, o que cada aula exige, como tinta guache, flashcards ou uma mystery box.',
+      'Preview with sample data.', 'Prévia com dados fictícios.')}
+  </div>
+  <dialog class="lightbox" id="lightbox" aria-label="Preview" data-pt-aria="Prévia">
+    <img id="lightboxImg" alt="">
+    <button type="button" class="lb-close" id="lightboxClose" aria-label="Close" data-pt-aria="Fechar">×</button>
+  </dialog>
 </main>
 '''
 
@@ -251,6 +278,6 @@ if __name__ == '__main__':
          'Study guides, support materials and the bimonthly project for each grade at Colégio São Benedito.', SB,
          current='students/', css=('sb.css',), scripts=('./materials.js', './app.js'))
     page('playground/', f'Playground · {SITE_NAME}', f'Playground · {SITE_NAME}', 'Small games to practice English.', PLAY, current='playground/')
-    page('projects/', f'Projects · {SITE_NAME}', f'Projetos · {SITE_NAME}', 'Games, maps and tools for school.', PROJECTS, current='projects/')
+    page('projects/', f'Projects · {SITE_NAME}', f'Projetos · {SITE_NAME}', 'Educational solutions and tools for the classroom, school management and the city.', PROJECTS, current='projects/', css=('projects.css',), scripts=('assets/projects.js',))
     page('about/', f'About me · {SITE_NAME}', f'Sobre mim · {SITE_NAME}', 'Who I am and how I teach.', ABOUT, current='about/')
     page('404.html', f'Lost at sea · {SITE_NAME}', f'Perdido no mar · {SITE_NAME}', 'Page not found.', NOT_FOUND)

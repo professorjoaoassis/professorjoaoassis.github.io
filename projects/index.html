@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-pt="Projetos · Professor João Assis">Projects · Professor João Assis</title>
-<meta name="description" content="Games, maps and tools for school.">
+<meta name="description" content="Educational solutions and tools for the classroom, school management and the city.">
 <meta name="theme-color" content="#08090b">
 <meta property="og:title" content="Projects · Professor João Assis">
-<meta property="og:description" content="Games, maps and tools for school.">
+<meta property="og:description" content="Educational solutions and tools for the classroom, school management and the city.">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <script>try{if(localStorage.getItem('joao-lang')==='pt'){document.documentElement.classList.add('pt-wait');setTimeout(function(){document.documentElement.classList.remove('pt-wait')},1500)}}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/projects.css">
 </head>
 <body>
 <a class="skip" href="#main" data-pt="Pular para o conteúdo">Skip to content</a>
@@ -38,30 +39,65 @@
 <main class="wrap page" id="main">
   <div class="page-head">
     <h1 data-pt="Projetos">Projects</h1>
-    <p class="lead" data-pt="Coisas maiores que eu construí ou estou construindo: jogos, mapas e ferramentas para a escola.">Bigger things I've <span class="lw" data-tr="construí">built</span> or I'm still building: games, maps and <span class="lw" data-tr="ferramentas">tools</span> for school.</p>
+    <p class="lead" data-pt="Soluções educacionais e ferramentas que desenvolvi para a sala de aula, para a gestão escolar e para a minha cidade.">Educational <span class="lw" data-tr="soluções">solutions</span> and tools I have <span class="lw" data-tr="desenvolvi">developed</span> for the classroom, for school management and for my city.</p>
   </div>
-  <ul class="cards">
-    <li>
-      <div class="top"><h3>Cuiabá heat map</h3><span class="chip map">map</span></div>
-      <p data-pt="As regiões mais quentes da cidade, mapeadas com dados de satélite.">The hottest parts of the city, mapped with satellite data.</p>
-      <p class="chip" style="--c:var(--sand)" data-pt="em andamento">in progress</p>
-    </li>
-    <li>
-      <div class="top"><h3>Grades &amp; report cards</h3><span class="chip tool">tool</span></div>
-      <p data-pt="Um app gratuito de notas e boletins, feito para uma escola bilíngue.">A free app for grades and report cards, made for a bilingual school.</p>
-      <p class="chip" style="--c:var(--sand)" data-pt="em andamento">in progress</p>
-    </li>
-    <li>
-      <div class="top"><h3>Lesson guide</h3><span class="chip tool">tool</span></div>
-      <p data-pt="Um planejador interativo para organizar as aulas e tarefas do bimestre.">An interactive planner to organize the lessons and tasks of a school term.</p>
-      <p class="chip" style="--c:var(--sand)" data-pt="em andamento">in progress</p>
-    </li>
-  </ul>
+  <div class="projects">
+    <article class="project" id="heat-map">
+      <button type="button" class="shot" data-full="img/heat-map.webp" aria-label="Enlarge preview: Cuiabá heat map" data-pt-aria="Ampliar prévia: Mapa de calor de Cuiabá">
+        <img src="img/heat-map.webp" alt="" loading="lazy" width="1280" height="800">
+        <span class="zoom" aria-hidden="true">⤢</span>
+      </button>
+      <div class="pbody">
+        <div class="top"><h2 data-pt="Mapa de calor de Cuiabá">Cuiabá heat map</h2><span class="chip map" data-pt="mapa">map</span></div>
+        <p data-pt="Mapa interativo que identifica as áreas mais quentes de Cuiabá e Várzea Grande a partir de imagens de satélite, com camadas de arborização, áreas construídas e da evolução do calor desde a década de 1980. A próxima etapa incorpora os dados do MapBiomas sobre uso e cobertura da terra de 1985 até hoje, permitindo relacionar o crescimento urbano e a perda de vegetação ao aumento da temperatura. Em sala, a educação ambiental se converte em investigação: os alunos localizam a própria casa e a escola, levantam hipóteses sobre por que alguns bairros esquentam mais e propõem onde plantar árvores ou criar sombra, a partir de dados reais da própria cidade.">An interactive map that shows the hottest parts of Cuiabá and Várzea Grande using <span class="lw" data-tr="satélite">satellite</span> images, with <span class="lw" data-tr="camadas">layers</span> for trees, buildings and how the heat has changed since the 1980s. The next step adds MapBiomas <span class="lw" data-tr="uso da terra">land-use</span> data from 1985 to today, so we can compare where the city grew and where nature <span class="lw" data-tr="desapareceu">disappeared</span> with where it is hottest now. In class, environmental education becomes an <span class="lw" data-tr="investigação">investigation</span>: students find their home and school on the map, ask why some <span class="lw" data-tr="bairros">neighborhoods</span> are hotter, and suggest where to plant trees, using real data from their own city.</p>
+        <p class="cap" data-pt="Captura do mapa em funcionamento.">Screenshot of the live map.</p>
+        <a class="more" href="https://cuiaba-heat.projects.earthengine.app/view/calordecuiaba" target="_blank" rel="noopener" data-pt="Abrir o mapa →">Open the map →</a>
+      </div>
+    </article>
+    <article class="project" id="school-management">
+      <button type="button" class="shot" data-full="img/school-management.webp" aria-label="Enlarge preview: School management system" data-pt-aria="Ampliar prévia: Sistema de gestão escolar">
+        <img src="img/school-management.webp" alt="" loading="lazy" width="1280" height="800">
+        <span class="zoom" aria-hidden="true">⤢</span>
+      </button>
+      <div class="pbody">
+        <div class="top"><h2 data-pt="Sistema de gestão escolar">School management system</h2><span class="chip tool" data-pt="ferramenta">tool</span></div>
+        <p data-pt="Sistema para a gestão dos registros acadêmicos de uma escola. Professores e coordenação acessam com login individual, cada um com as permissões adequadas à sua função. Os professores lançam notas e faltas; o sistema calcula as médias, sinaliza quem precisa de recuperação e gera os boletins, prontos para exportação em PDF e Excel. Reúne ainda o cadastro de turmas e alunos e os planejamentos de toda a equipe em um só lugar.">A system to manage a school's <span class="lw" data-tr="registros acadêmicos">academic records</span>. Teachers and coordinators sign in with their own accounts, each with the right <span class="lw" data-tr="acesso">access</span>. Teachers enter grades and <span class="lw" data-tr="faltas">absences</span>; the system calculates the averages, shows who needs extra support and builds the <span class="lw" data-tr="boletins">report cards</span>, ready to export as PDF or Excel. It also keeps class lists, student records and the team's lesson plans in one place.</p>
+        <p class="cap" data-pt="Prévia com dados fictícios.">Preview with sample data.</p>
+      </div>
+    </article>
+    <article class="project" id="lesson-guide-school">
+      <button type="button" class="shot" data-full="img/lesson-guide-school.webp" aria-label="Enlarge preview: Lesson guide · middle and high school" data-pt-aria="Ampliar prévia: Guia de aula · Fundamental II e Ensino Médio">
+        <img src="img/lesson-guide-school.webp" alt="" loading="lazy" width="1280" height="800">
+        <span class="zoom" aria-hidden="true">⤢</span>
+      </button>
+      <div class="pbody">
+        <div class="top"><h2 data-pt="Guia de aula · Fundamental II e Ensino Médio">Lesson guide · middle and high school</h2><span class="chip tool" data-pt="ferramenta">tool</span></div>
+        <p data-pt="Planejador do bimestre completo, aula a aula: tema, páginas do material, tarefa de casa e um plano B para o aluno sem material. O guia indica qual tarefa deve ser cobrada em cada aula, registra a entrega por aluno, acompanha as segundas chamadas e consolida as notas do bimestre.">A planner for the whole school term, lesson by lesson: topic, book pages, <span class="lw" data-tr="tarefa de casa">homework</span> and a plan B for students without their material. It <span class="lw" data-tr="lembra">reminds</span> me which homework to check in each class, records homework for each student, <span class="lw" data-tr="acompanha">tracks</span> make-up tests and gathers the term grades.</p>
+        <p class="cap" data-pt="Prévia com dados fictícios.">Preview with sample data.</p>
+      </div>
+    </article>
+    <article class="project" id="lesson-guide-bilingual">
+      <button type="button" class="shot" data-full="img/lesson-guide-bilingual.webp" aria-label="Enlarge preview: Lesson guide · bilingual program for children" data-pt-aria="Ampliar prévia: Guia de aula · programa bilíngue infantil">
+        <img src="img/lesson-guide-bilingual.webp" alt="" loading="lazy" width="1280" height="800">
+        <span class="zoom" aria-hidden="true">⤢</span>
+      </button>
+      <div class="pbody">
+        <div class="top"><h2 data-pt="Guia de aula · programa bilíngue infantil">Lesson guide · bilingual program for children</h2><span class="chip tool" data-pt="ferramenta">tool</span></div>
+        <p data-pt="Roteiro para uso em sala, no tablet: aquecimento, atividades, músicas e encerramento, um passo de cada vez, com as faixas de áudio prontas para tocar. Uma aba de preparo antecipa, com dias de antecedência, o que cada aula exige, como tinta guache, flashcards ou uma mystery box.">A step-by-step guide to use during class on a tablet: warm-up, activities, songs and wrap-up, one step at a time, with the audio tracks ready to play. A <span class="lw" data-tr="preparo">preparation</span> tab shows, days in <span class="lw" data-tr="antecedência">advance</span>, what each lesson needs, like paint, flashcards or a mystery box.</p>
+        <p class="cap" data-pt="Prévia com dados fictícios.">Preview with sample data.</p>
+      </div>
+    </article>
+  </div>
+  <dialog class="lightbox" id="lightbox" aria-label="Preview" data-pt-aria="Prévia">
+    <img id="lightboxImg" alt="">
+    <button type="button" class="lb-close" id="lightboxClose" aria-label="Close" data-pt-aria="Fechar">×</button>
+  </dialog>
 </main>
 
 <footer class="site"><div class="wrap">
   <span data-pt="Criado e dirigido por João · Cuiabá, MT">Designed and directed by João · Cuiabá, MT</span>
 </div></footer>
 <script src="../assets/site.js"></script>
+<script src="../assets/projects.js"></script>
 </body>
 </html>

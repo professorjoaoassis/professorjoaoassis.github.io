@@ -1,0 +1,20 @@
+/* Projects page: one project per row, preview on the left */
+.projects{display:grid;gap:22px}
+.project{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;padding:18px;border:1px solid var(--line);border-radius:14px;align-items:start;transition:border-color .3s var(--ease)}
+.project:hover{border-color:#34373e}
+.shot{position:relative;display:block;width:100%;padding:0;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;background:#111;cursor:zoom-in;aspect-ratio:16/10}
+.shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .5s var(--ease)}
+.shot:hover img{transform:scale(1.03)}
+.shot .zoom{position:absolute;right:8px;bottom:8px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(8,9,11,.75);color:var(--ink);font-size:15px}
+.pbody{display:grid;gap:10px;min-width:0}
+.pbody .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.pbody h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.025em;text-wrap:balance}
+.pbody p{margin:0;color:var(--soft);font-size:15px}
+.pbody .cap{font:400 12px var(--f-mono);color:var(--dim)}
+.pbody .more{color:var(--water);font-size:14px;font-weight:500}
+.pbody .more:hover{color:var(--ink)}
+.lightbox{padding:0;border:0;background:transparent;max-width:min(1280px,94vw);max-height:92vh;overflow:visible}
+.lightbox::backdrop{background:rgba(4,5,7,.82);backdrop-filter:blur(3px)}
+.lightbox img{display:block;max-width:100%;max-height:88vh;border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.lb-close{position:absolute;top:-14px;right:-14px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--panel);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+@media (max-width:720px){.project{grid-template-columns:minmax(0,1fr)}.lb-close{top:6px;right:6px}}
