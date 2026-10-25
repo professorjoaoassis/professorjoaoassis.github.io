@@ -324,9 +324,12 @@
     Object.assign(dw.hang, { x: tip.x, y: tip.y + 7 * P, vx: 0, vy: 0 });
     setupDecor(best.i, best.j);
     const bottom = dw.rockTop + RH * P;
-    Object.assign(hit.style, { left: (dw.ox - P) + 'px', top: (dw.oy - 8 * P) + 'px', width: (12 * P) + 'px', height: (bottom - dw.oy + 8 * P) + 'px' });
+    // at least 56 px wide so a thumb can hit it on a phone
+    const hw = Math.max(12 * P, 56), hl = dw.ox - P - (hw - 12 * P) / 2;
+    Object.assign(hit.style, { left: hl + 'px', top: (dw.oy - 8 * P) + 'px', width: hw + 'px', height: (bottom - dw.oy + 8 * P) + 'px' });
     const bp = basketPos();
-    Object.assign(basketBtn.style, { left: (bp.x - P) + 'px', top: (bp.y - 4 * P) + 'px', width: (10 * P) + 'px', height: (10 * P) + 'px' });
+    const bs = Math.max(10 * P, 38);   // grows to the right and up, away from the dwarf
+    Object.assign(basketBtn.style, { left: (bp.x - P) + 'px', top: (bp.y - 4 * P - (bs - 10 * P) / 2) + 'px', width: bs + 'px', height: bs + 'px' });
     // night sky bits
     const ex = edge[Math.min(2, rows - 1)];
     moon = { x: Math.round(W * .11 - 3.5 * P), y: Math.round(Math.max(14, Hh * .05)) };   // above the open water, so it has something to shine on
