@@ -228,6 +228,11 @@ LAB = f'''
       <a class="more" href="verbie/" data-pt="Abrir o Verbie →">Open Verbie →</a>
     </li>
     <li>
+      <div class="top"><h3>Safari Diorama</h3><span class="chip game">game</span></div>
+      <p data-pt="Escolha um ambiente, coloque plantas e animais e aperte Play para ver tudo ganhar vida. Toque em um animal para ouvir o nome em inglês e encare o desafio do habitat.">Choose a {lw('habitat', 'ambiente')}, add plants and animals, and press Play to watch them come alive. Tap an animal to hear its name in English and try the habitat challenge.</p>
+      <a class="more" href="safari/" data-pt="Abrir a maquete →">Open the diorama →</a>
+    </li>
+    <li>
       <div class="top"><h3>Word Fishing</h3><span class="chip game">game</span></div>
       <p data-pt="Clique no anão da página inicial para pescar palavras em inglês. Dá para ouvir a pronúncia e colecionar todas, mas cuidado com a gaivota.">Click the dwarf on the home page to {lw('fish', 'pescar')} for English words. You can listen to each word and collect them all, but watch out for the {lw('seagull', 'gaivota')}.</p>
       <a class="more" href="../" data-pt="Jogar na página inicial →">Play on the home page →</a>
@@ -329,7 +334,7 @@ if __name__ == '__main__':
     page('students/sao-benedito/', f'Colégio São Benedito · {SITE_NAME}', f'Colégio São Benedito · {SITE_NAME}',
          'Study guides, support materials and the bimonthly project for each grade at Colégio São Benedito.', SB,
          current='students/', css=('sb.css',), scripts=('./materials.js', './app.js'), hidden=True)
-    page('laboratory/', f'Laboratory · {SITE_NAME}', f'Laboratório · {SITE_NAME}', 'Laboratório do Professor João Assis: aplicativos e jogos para praticar inglês, como o Verbie e o Word Fishing.', LAB, current='laboratory/')
+    page('laboratory/', f'Laboratory · {SITE_NAME}', f'Laboratório · {SITE_NAME}', 'Laboratório do Professor João Assis: aplicativos e jogos para praticar inglês, como o Verbie, a Safari Diorama e o Word Fishing.', LAB, current='laboratory/')
     # the old address keeps working
     old = ROOT / 'playground' / 'index.html'
     old.parent.mkdir(exist_ok=True)
@@ -337,7 +342,7 @@ if __name__ == '__main__':
     page('projects/', f'Projects · {SITE_NAME}', f'Projetos · {SITE_NAME}', 'Projetos do Professor João Assis: soluções educacionais para a sala de aula, a gestão escolar e a educação ambiental em Cuiabá.', PROJECTS, current='projects/', css=('projects.css',), scripts=('assets/projects.js',))
     page('about/', f'About me · {SITE_NAME}', f'Sobre mim · {SITE_NAME}', 'Conheça João Pedro de Assis, professor de inglês em Cuiabá, e a sua visão de ensino. Aulas particulares pelo WhatsApp.', ABOUT, current='about/')
     today = __import__('datetime').date.today().isoformat()
-    urls = ['', 'students/', 'laboratory/', 'laboratory/verbie/', 'projects/', 'about/']
+    urls = ['', 'students/', 'laboratory/', 'laboratory/verbie/', 'laboratory/safari/', 'projects/', 'about/']
     (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{SITE_URL}{u}</loc><lastmod>{today}</lastmod></url>\n' for u in urls) + '</urlset>\n', encoding='utf-8')
     (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n', encoding='utf-8')
