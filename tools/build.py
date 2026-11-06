@@ -3,11 +3,13 @@
 Run from the project root:  python3 tools/build.py
 Text pairs: English is the default; data-pt holds the Portuguese version.
 <span class="lw" data-tr="...">word</span> marks a word for Learning mode."""
+import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BRAND = '<span class="pre">Professor</span> João Assis<span class="dot">.</span>'   # shown top-left on every page
-SITE_NAME = 'Professor João Assis'     # used in page titles
+SITE_NAME = 'Professor João Assis'
+SITE_URL = 'https://professorjoaoassis.github.io/'   # change here if the site moves to its own domain     # used in page titles
 
 NAV = [('students/', 'Students', 'Alunos'), ('laboratory/', 'Laboratory', 'Laboratório'),
        ('projects/', 'Projects', 'Projetos'), ('about/', 'About me', 'Sobre mim')]
@@ -17,7 +19,7 @@ def lw(word, tr):
     return f'<span class="lw" data-tr="{tr}">{word}</span>'
 
 
-def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(), footer_extra='', wave=True, hidden=False):
+def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(), footer_extra='', wave=True, hidden=False, head_extra=''):
     depth = path.count('/')
     root = '/' if path == '404.html' else '../' * depth   # the 404 page can be shown at any address
     nav = '\n      '.join(
@@ -26,6 +28,8 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
     css_links = ''.join(f'\n<link rel="stylesheet" href="{root}assets/{c}">' for c in css)
     js = ''.join(f'\n<script src="{s if s.startswith("http") or s.startswith("./") else root + s}"></script>' for s in scripts)
     robots = '\n<meta name="robots" content="noindex, nofollow">' if hidden else ''
+    if not hidden and path != '404.html':
+        robots += f'\n<link rel="canonical" href="{SITE_URL}{path}">\n<meta property="og:url" content="{SITE_URL}{path}">'
     wave_html = '\n<div class="wave" aria-hidden="true"><canvas></canvas></div>' if wave else ''
     html = f'''<!doctype html>
 <html lang="en">
@@ -37,6 +41,13 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
 <meta name="theme-color" content="#08090b">{robots}
 <meta property="og:title" content="{title_en}">
 <meta property="og:description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{SITE_NAME}">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="{SITE_URL}assets/og.jpg">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary">{head_extra}
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
 <script>try{{if(localStorage.getItem('joao-lang')==='pt'){{document.documentElement.classList.add('pt-wait');setTimeout(function(){{document.documentElement.classList.remove('pt-wait')}},1500)}}}}catch(e){{}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,6 +99,13 @@ def contact(kicker_id):
     </div>
   </section>'''
 
+
+PERSON = '\n<script type="application/ld+json">' + json.dumps({
+    '@context': 'https://schema.org', '@type': 'Person', 'name': 'João Pedro de Assis',
+    'alternateName': ['Professor João Assis', 'João Assis'], 'jobTitle': 'Professor de inglês',
+    'knowsLanguage': ['pt-BR', 'en'], 'url': SITE_URL, 'image': SITE_URL + 'about/img/joao.webp',
+    'address': {'@type': 'PostalAddress', 'addressLocality': 'Cuiabá', 'addressRegion': 'MT', 'addressCountry': 'BR'},
+}, ensure_ascii=False) + '</script>'
 
 HOME = f'''
 <div id="boot" hidden aria-hidden="true">
@@ -301,19 +319,24 @@ NOT_FOUND = '''
 '''
 
 if __name__ == '__main__':
-    desc = 'João, English teacher in Cuiabá: activities, study guides, games and projects.'
-    page('', f'{SITE_NAME} · English teacher', f'{SITE_NAME} · Professor de inglês', desc, HOME, css=('home.css',),
+    desc = 'Professor João Assis, professor de inglês em Cuiabá (MT). Aulas particulares para crianças, adolescentes e adultos, materiais de estudo, jogos e ferramentas para aprender inglês.'
+    page('', f'{SITE_NAME} · English teacher in Cuiabá', f'{SITE_NAME} · Professor de inglês em Cuiabá', desc, HOME, css=('home.css',), head_extra=PERSON,
          scripts=('assets/sfx.js', 'assets/scene.js'), wave=False,
          footer_extra='\n  <button type="button" id="replay" data-pt="Ver a abertura de novo">Replay intro</button>')
-    page('students/', f'Students · {SITE_NAME}', f'Alunos · {SITE_NAME}', 'Materials for my students, by school and grade.', STUDENTS, current='students/')
+    page('students/', f'Students · {SITE_NAME}', f'Alunos · {SITE_NAME}', 'Materiais de estudo dos alunos do Professor João Assis, organizados por escola e série.', STUDENTS, current='students/')
     page('students/sao-benedito/', f'Colégio São Benedito · {SITE_NAME}', f'Colégio São Benedito · {SITE_NAME}',
          'Study guides, support materials and the bimonthly project for each grade at Colégio São Benedito.', SB,
          current='students/', css=('sb.css',), scripts=('./materials.js', './app.js'), hidden=True)
-    page('laboratory/', f'Laboratory · {SITE_NAME}', f'Laboratório · {SITE_NAME}', 'Small experiments to practice English: apps and games.', LAB, current='laboratory/')
+    page('laboratory/', f'Laboratory · {SITE_NAME}', f'Laboratório · {SITE_NAME}', 'Laboratório do Professor João Assis: aplicativos e jogos para praticar inglês, como o Verbie e o Word Fishing.', LAB, current='laboratory/')
     # the old address keeps working
     old = ROOT / 'playground' / 'index.html'
     old.parent.mkdir(exist_ok=True)
     old.write_text('<!doctype html><meta charset="utf-8"><title>Laboratory</title><meta http-equiv="refresh" content="0; url=../laboratory/"><link rel="canonical" href="../laboratory/"><a href="../laboratory/">Laboratory</a>\n', encoding='utf-8')
-    page('projects/', f'Projects · {SITE_NAME}', f'Projetos · {SITE_NAME}', 'Educational solutions and tools for the classroom, school management and the city.', PROJECTS, current='projects/', css=('projects.css',), scripts=('assets/projects.js',))
-    page('about/', f'About me · {SITE_NAME}', f'Sobre mim · {SITE_NAME}', 'Who I am and how I teach.', ABOUT, current='about/')
+    page('projects/', f'Projects · {SITE_NAME}', f'Projetos · {SITE_NAME}', 'Projetos do Professor João Assis: soluções educacionais para a sala de aula, a gestão escolar e a educação ambiental em Cuiabá.', PROJECTS, current='projects/', css=('projects.css',), scripts=('assets/projects.js',))
+    page('about/', f'About me · {SITE_NAME}', f'Sobre mim · {SITE_NAME}', 'Conheça João Pedro de Assis, professor de inglês em Cuiabá, e a sua visão de ensino. Aulas particulares pelo WhatsApp.', ABOUT, current='about/')
+    today = __import__('datetime').date.today().isoformat()
+    urls = ['', 'students/', 'laboratory/', 'laboratory/verbie/', 'projects/', 'about/']
+    (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + ''.join(f'  <url><loc>{SITE_URL}{u}</loc><lastmod>{today}</lastmod></url>\n' for u in urls) + '</urlset>\n', encoding='utf-8')
+    (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n', encoding='utf-8')
     page('404.html', f'Lost at sea · {SITE_NAME}', f'Perdido no mar · {SITE_NAME}', 'Page not found.', NOT_FOUND)
