@@ -100,6 +100,8 @@ def contact(kicker_id):
   </section>'''
 
 
+# proves to Google Search Console that this site is João's
+GOOGLE_VERIFY = '\n<meta name="google-site-verification" content="XnKiimnAV-hlJMqFRw2AxzH3kF-lk-2qTQhYB3UsSqI">'
 PERSON = '\n<script type="application/ld+json">' + json.dumps({
     '@context': 'https://schema.org', '@type': 'Person', 'name': 'João Pedro de Assis',
     'alternateName': ['Professor João Assis', 'João Assis'], 'jobTitle': 'Professor de inglês',
@@ -320,7 +322,7 @@ NOT_FOUND = '''
 
 if __name__ == '__main__':
     desc = 'Professor João Assis, professor de inglês em Cuiabá (MT). Aulas particulares para crianças, adolescentes e adultos, materiais de estudo, jogos e ferramentas para aprender inglês.'
-    page('', f'{SITE_NAME} · English teacher in Cuiabá', f'{SITE_NAME} · Professor de inglês em Cuiabá', desc, HOME, css=('home.css',), head_extra=PERSON,
+    page('', f'{SITE_NAME} · English teacher in Cuiabá', f'{SITE_NAME} · Professor de inglês em Cuiabá', desc, HOME, css=('home.css',), head_extra=GOOGLE_VERIFY + PERSON,
          scripts=('assets/sfx.js', 'assets/scene.js'), wave=False,
          footer_extra='\n  <button type="button" id="replay" data-pt="Ver a abertura de novo">Replay intro</button>')
     page('students/', f'Students · {SITE_NAME}', f'Alunos · {SITE_NAME}', 'Materiais de estudo dos alunos do Professor João Assis, organizados por escola e série.', STUDENTS, current='students/')
