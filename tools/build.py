@@ -48,7 +48,11 @@ def page(path, title_en, title_pt, desc, body, current=None, css=(), scripts=(),
 <meta property="og:image:width" content="600">
 <meta property="og:image:height" content="600">
 <meta name="twitter:card" content="summary">{head_extra}
+<link rel="icon" href="{root}favicon.ico" sizes="48x48">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{root}assets/icon-96.png" type="image/png" sizes="96x96">
+<link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
+<link rel="manifest" href="{root}site.webmanifest">
 <script>try{{if(localStorage.getItem('joao-lang')==='pt'){{document.documentElement.classList.add('pt-wait');setTimeout(function(){{document.documentElement.classList.remove('pt-wait')}},1500)}}}}catch(e){{}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,6 +111,9 @@ PERSON = '\n<script type="application/ld+json">' + json.dumps({
     'alternateName': ['Professor João Assis', 'João Assis'], 'jobTitle': 'Professor de inglês',
     'knowsLanguage': ['pt-BR', 'en'], 'url': SITE_URL, 'image': SITE_URL + 'about/img/joao.webp',
     'address': {'@type': 'PostalAddress', 'addressLocality': 'Cuiabá', 'addressRegion': 'MT', 'addressCountry': 'BR'},
+}, ensure_ascii=False) + '</script>' + '\n<script type="application/ld+json">' + json.dumps({
+    '@context': 'https://schema.org', '@type': 'WebSite', 'name': 'Professor João Assis',
+    'alternateName': ['João Assis', 'Prof. João Assis'], 'url': SITE_URL,
 }, ensure_ascii=False) + '</script>'
 
 HOME = f'''
@@ -345,5 +352,11 @@ if __name__ == '__main__':
     urls = ['', 'students/', 'laboratory/', 'laboratory/verbie/', 'laboratory/safari/', 'projects/', 'about/']
     (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{SITE_URL}{u}</loc><lastmod>{today}</lastmod></url>\n' for u in urls) + '</urlset>\n', encoding='utf-8')
+    (ROOT / 'site.webmanifest').write_text(json.dumps({
+        'name': 'Professor João Assis', 'short_name': 'Prof. João', 'start_url': '/', 'display': 'standalone',
+        'background_color': '#08090b', 'theme_color': '#08090b', 'lang': 'pt-BR',
+        'icons': [{'src': '/assets/icon-192.png', 'sizes': '192x192', 'type': 'image/png'},
+                  {'src': '/assets/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}],
+    }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n', encoding='utf-8')
     page('404.html', f'Lost at sea · {SITE_NAME}', f'Perdido no mar · {SITE_NAME}', 'Page not found.', NOT_FOUND)
